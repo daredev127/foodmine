@@ -32,7 +32,7 @@ app.get("/api/foods/tags/:tagName", (req, res) => {
   res.send(foods);
 });
 
-app.get("/api/food/:foodId", (req, res) => {
+app.get("/api/foods/:foodId", (req, res) => {
   const foodId = req.params.foodId;
   const food = sample_foods.find((food) => food.id === foodId);
   res.send(food);
