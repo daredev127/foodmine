@@ -14,13 +14,14 @@
         </div>
         <span class="favorite {{ food.favorite ? '' : 'not' }}"> ❤ </span>
         <div class="stars">
-          <star-rating
-            [value]="food.stars"
+          <ngb-rating
+            [(rate)]="food.stars"
             checkedcolor="red"
             uncheckedcolor="black"
             size="22px"
             [readonly]="true"
-          ></star-rating>
+            [max]="5"
+          ></ngb-rating>
         </div>
         <div class="product-item-footer">
           <div class="origins">

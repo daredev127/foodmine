@@ -13,14 +13,14 @@
     </div>
 
     <div class="rating">
-      <star-rating
-        [value]="food.stars"
-        [totalstars]="5"
+      <ngb-rating
+        [(rate)]="food.stars"
+        [max]="5"
         checkedcolor="red"
         uncheckedcolor="black"
         size="25px"
         [readonly]="true"
-      ></star-rating>
+      ></ngb-rating>
     </div>
 
     <div class="origins">
