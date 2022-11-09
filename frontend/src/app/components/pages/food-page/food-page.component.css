@@ -1,3 +1,8 @@
+.main-container {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
 .container {
   display: flex;
   justify-content: center;
@@ -5,7 +10,6 @@
   flex-wrap: wrap;
   margin: 3rem;
 }
-
 .container > * {
   min-width: 25rem;
   max-width: 40rem;
@@ -24,7 +28,6 @@ img {
   display: flex;
   flex-direction: column;
   flex: 1 0;
-  border: 3rem;
   padding: 2rem;
   color: black;
   margin-left: 1rem;
