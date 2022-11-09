@@ -14,3 +14,9 @@ form {
   display: flex;
   flex-direction: column;
 }
+
+.register {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}

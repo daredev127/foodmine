@@ -4,7 +4,7 @@
     <nav>
       <ul>
         <li *ngIf="!isAuth">
-          <a routerLink="/login-page">Login</a>
+          <a routerLink="/login">Login</a>
         </li>
         <li *ngIf="isAuth" class="menu-container">
           <a routerLink="/dashboard">{{ user.name }}</a>
