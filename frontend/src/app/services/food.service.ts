@@ -5,6 +5,7 @@ import { sample_foods, sample_tags } from 'src/data';
 import {
   FOODS_BY_ID_URL,
   FOODS_BY_SEARCH_URL,
+  FOODS_BY_TAG_URL,
   FOODS_TAGS_URL,
   FOODS_URL,
 } from '../shared/constants/urls';
@@ -32,7 +33,7 @@ export class FoodService {
   getAllFoodsByTag(tag: string): Observable<Food[]> {
     return tag === 'All'
       ? this.getAll()
-      : this.http.get<Food[]>(FOODS_TAGS_URL + tag);
+      : this.http.get<Food[]>(FOODS_BY_TAG_URL + tag);
   }
 
   getFoodById(foodId: string): Observable<Food> {
