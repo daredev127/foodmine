@@ -1,16 +1,11 @@
-.main-container {
-  display: flex;
-  justify-content: center;
-  align-items: center;
-}
-.container {
+.food-container {
   display: flex;
   justify-content: center;
   align-items: center;
   flex-wrap: wrap;
   margin: 3rem;
 }
-.container > * {
+.food-container > * {
   min-width: 25rem;
   max-width: 40rem;
 }
