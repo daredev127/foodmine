@@ -1,4 +1,4 @@
-import { Component, ElementRef, OnInit, ViewChild } from '@angular/core';
+import { Component, ElementRef, Input, OnInit, ViewChild } from '@angular/core';
 import {
   icon,
   LatLng,
@@ -13,6 +13,7 @@ import {
   LeafletMouseEvent,
 } from 'leaflet';
 import { LocationService } from 'src/app/services/location.service';
+import { Order } from 'src/app/shared/models/Order';
 
 @Component({
   selector: 'map',
@@ -28,6 +29,9 @@ export class MapComponent implements OnInit {
     iconAnchor: [21, 42],
   });
   private readonly DEFAULT_LATLNG: LatLngTuple = [13.75, 21.62];
+
+  @Input()
+  order!: Order;
 
   @ViewChild('map', { static: true })
   mapRef!: ElementRef;
@@ -64,6 +68,7 @@ export class MapComponent implements OnInit {
   }
 
   setMarker(latLng: LatLngExpression) {
+    this.addressLatLng = latLng as LatLng;
     if (this.currentMarker) {
       this.currentMarker.setLatLng(latLng);
       return;
@@ -73,5 +78,15 @@ export class MapComponent implements OnInit {
       draggable: true,
       icon: this.MARKER_ICON,
     }).addTo(this.map);
+
+    this.currentMarker.on('dragend', () => {
+      this.addressLatLng = this.currentMarker.getLatLng();
+    });
+  }
+
+  set addressLatLng(latLng: LatLng) {
+    latLng.lat = parseFloat(latLng.lat.toFixed(8));
+    latLng.lng = parseFloat(latLng.lng.toFixed(8));
+    this.order.addressLatLng = latLng;
   }
 }
