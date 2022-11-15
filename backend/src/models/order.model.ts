@@ -1,5 +1,5 @@
 import { model, Schema, Types } from "mongoose";
-import { OrderStatusEnum as OrderStatus } from "../constants/order_status";
+import { OrderStatus } from "../constants/order_status";
 import { Food, FoodSchema } from "./food.model";
 
 export interface LatLng {
