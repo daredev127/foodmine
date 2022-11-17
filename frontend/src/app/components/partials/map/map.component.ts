@@ -1,4 +1,10 @@
-import { Component, ElementRef, Input, OnInit, ViewChild } from '@angular/core';
+import {
+  Component,
+  ElementRef,
+  Input,
+  OnChanges,
+  ViewChild,
+} from '@angular/core';
 import {
   icon,
   LatLng,
@@ -20,7 +26,7 @@ import { Order } from 'src/app/shared/models/Order';
   templateUrl: './map.component.html',
   styleUrls: ['./map.component.css'],
 })
-export class MapComponent implements OnInit {
+export class MapComponent implements OnChanges {
   private readonly MARKER_ZOOM_LEVEL = 16;
   private readonly MARKER_ICON = icon({
     iconUrl:
@@ -33,6 +39,9 @@ export class MapComponent implements OnInit {
   @Input()
   order!: Order;
 
+  @Input()
+  readonly = false;
+
   @ViewChild('map', { static: true })
   mapRef!: ElementRef;
 
@@ -41,8 +50,29 @@ export class MapComponent implements OnInit {
 
   constructor(private locationService: LocationService) {}
 
-  ngOnInit(): void {
+  ngOnChanges(): void {
+    if (!this.order) return;
     this.initializeMap();
+
+    if (this.readonly && this.addressLatLng) {
+      this.showLocationOnReadOnlyMode();
+    }
+  }
+
+  showLocationOnReadOnlyMode() {
+    const m = this.map;
+    this.setMarker(this.addressLatLng);
+    m.setView(this.addressLatLng, this.MARKER_ZOOM_LEVEL);
+
+    m.dragging.disable();
+    m.touchZoom.disable();
+    m.doubleClickZoom.disable();
+    m.scrollWheelZoom.disable();
+    m.boxZoom.disable();
+    m.keyboard.disable();
+    m.off('click');
+    m.tap?.disable();
+    this.currentMarker.dragging?.disable();
   }
 
   initializeMap() {
@@ -85,8 +115,13 @@ export class MapComponent implements OnInit {
   }
 
   set addressLatLng(latLng: LatLng) {
+    if (!latLng.lat.toFixed) return;
     latLng.lat = parseFloat(latLng.lat.toFixed(8));
     latLng.lng = parseFloat(latLng.lng.toFixed(8));
     this.order.addressLatLng = latLng;
+  }
+
+  get addressLatLng() {
+    return this.order.addressLatLng!;
   }
 }
