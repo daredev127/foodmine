@@ -14,7 +14,7 @@ router.post(
     const requestOrder = req.body;
 
     if (requestOrder.items.length <= 0) {
-      req.status(HTTP_BAD_REQUEST).send("Cart is empty!");
+      res.status(HTTP_BAD_REQUEST).send("Cart is empty!");
       return;
     }
 
@@ -54,6 +54,14 @@ router.post(
     await order.save();
 
     res.send(order._id);
+  })
+);
+
+router.get(
+  "/track/:id",
+  asyncHander(async (req: any, res: any) => {
+    const order = await OrderModel.findById(req.params.id);
+    res.send(order);
   })
 );
 
